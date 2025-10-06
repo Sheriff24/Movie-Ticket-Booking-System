@@ -1,42 +1,59 @@
-# Movie-Ticket-Booking-System (Django + DRF)
+# BookMyTicket
 
-## Setup (development) 
-1. Clone repo.
-2. Create and activate virtualenv:
-   python -m venv venv
-   venv\Scripts\activate # Windows
-   
-3. Install: pip install -r requirements.txt
+An Application to book movie tickets.  
 
-4. Create `.env` file in project root (optional, or use defaults):
-   SECRET_KEY=change-me
-   DEBUG=True DB_ENGINE=django.db.backends.sqlite3
-   DB_NAME=db.sqlite3
+## Description
 
-5. Run migrations:
-   python manage.py migrate
+The application has two users Theatre staff and users who book tickets. The theatre staff can Create, Update, Delete Movies and add Shows for each movie on any day. 
+The end users can book tickets after creating an account. The application is developed using Django the database used is PostgreSQL. 
 
-6. Create superuser:
-   python manage.py createsuperuser
+#### Flow of app names (dependency chain, for reference)
+```
+django-admin startproject movieticket
+cd movieticket
+django-admin startapp accounts
+django-admin startapp staff
+django-admin startapp booking
+```
+- add app names, 
+- change default user model, to create custom user model
+- change database configuration in .env file file.
 
-7. Run server: python manage.py runserver
+## UI Preview
 
-## API 
-- Swagger docs: `http://127.0.0.1:8000/swagger/`
-- Signup: POST `/api/signup/` => {username, password, email?}
-- Login: POST `/api/login/` => returns `access` and `refresh` tokens
-- Use header: `Authorization: Bearer <access_token>`
-- List movies: GET `/api/movies/`
-- List shows for movie: GET `/api/movies/<movie_id>/shows/`
-- Book a seat: POST `/api/shows/<show_id>/book/` with JSON `{"seat_number": 12}`
-- List my bookings: GET `/api/my-bookings/`
-- Cancel booking: POST `/api/bookings/<booking_id>/cancel/`
+### User End / Customer / Booking App (gif @1fps)
+![movie ticket project](https://user-images.githubusercontent.com/37036491/211182417-084e8044-2733-4272-ab7e-7c50ce8f5a89.gif)
 
-## Notes on Business Rules
-- Double booking prevented with `unique_together` (show, seat_number) + transaction checks.
-- Overbooking prevented by counting booked seats in a transaction.
-- Cancelled bookings free the seat (status becomes `cancelled`).
-- Security: only owner or admin can cancel a booking.
+### Admin End / Theatre Staff (gif @1fps)
+![movie ticket project 2](https://user-images.githubusercontent.com/37036491/211182565-7e12ab00-0f85-448a-be37-76fd35195167.gif)
 
-## Bonus 
-- Concurrency protection uses `select_for_update()` + `transaction.atomic()`. For high concurrency, consider database-level constraints and retry/backoff logic at the API layer.
+
+## Getting Started
+
+### Dependencies
+
+Python, Pip, Virtualenv, Django, Other (psycopg2-binary, crispy-bootstrap5, django-crispy-forms, psycopg2, python-dotenv)
+```
+pip install -r requirements.txt
+```
+
+### Running the program
+
+```
+Python manage.py runserver
+```
+
+## Authors
+[Bhaksara](https://github.com/bhaskars9)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+## Acknowledgments
+
+Inspiration, code snippets, etc.
+* [StartBootstrap](https://github.com/StartBootstrap/startbootstrap-sb-admin)
+* [Caroline Rodrigues](https://codepen.io/loracsilva/pen/ZrRYVL)
+* [Pavlos](https://codepen.io/paulantoniou/pen/RdBogQ?editors=1100)
+* [Coolors](https://coolors.co/02010a-04052e-140152-fff309-0d00a4)
