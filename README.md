@@ -44,7 +44,7 @@ Python manage.py runserver
 ```
 
 ## Authors
-[Bhaksara](https://github.com/bhaskars9)
+[Ashiq Sheriff](https://github.com/Sheriff24)
 
 ## License
 
